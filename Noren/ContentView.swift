@@ -22,19 +22,19 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             Tab("ハイライト", systemImage: "sparkles", value: .hailight) {
-                Text("ハイライト")
+                HailightView()
             }
             Tab("カレンダー", systemImage: "calendar", value: .calendar) {
-                Text("カレンダー")
+                CalendarView()
             }
             Tab("リマインダー", systemImage: "checklist", value: .reminder) {
-                Text("リマインダー")
+                ReminderView()
             }
             Tab("ノート", systemImage: "note.text", value: .note) {
-                Text("ノート")
+                NoteView()
             }
             Tab(value: .search, role: .search) {
-                Text("検索")
+                SearchView()
             }
         }
     }
