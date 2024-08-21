@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftUIIntrospect
 
 struct ScrollableMonthCalendarView: View {
     @Binding var selectedDate: YearMonthDay
@@ -43,6 +44,9 @@ struct ScrollableMonthCalendarView: View {
         }
         .scrollTargetBehavior(.paging)
         .scrollPosition(id: $scrollPosition)
+        .introspect(.scrollView, on: .iOS(.v18)) { scrollView in
+            scrollView.scrollsToTop = false
+        }
         .onChange(of: scrollPosition) { oldValue, newValue in
             guard let newValue else { return }
             if currentYearMonth == newValue {
