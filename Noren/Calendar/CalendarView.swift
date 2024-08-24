@@ -45,11 +45,14 @@ struct CalendarView: View {
             ScrollableMonthCalendarView(selectedDate: $selectedDate)
 
             Divider()
-                .padding(.horizontal)
+                .ignoresSafeArea(edges: .top)
 
             DayDetailView(selectedDate: selectedDate)
         }
         .RDViewSizer($viewSize)
+        .toolbarBackground(
+            viewSize.primaryAxis == .horizontal ? .visible : .automatic,
+            for: .tabBar)
     }
 }
 

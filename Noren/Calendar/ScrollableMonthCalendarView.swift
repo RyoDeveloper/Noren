@@ -14,6 +14,7 @@ struct ScrollableMonthCalendarView: View {
     @State private var scrollPosition: YearMonth?
     private let years: [Int]
     private let currentYearMonth: YearMonth
+    private let weekdays: [String] = DateFormatter().shortWeekdaySymbols
 
     init(selectedDate: Binding<YearMonthDay>) {
         _selectedDate = selectedDate
@@ -77,17 +78,37 @@ struct ScrollableMonthCalendarView: View {
             }
         }
         .safeAreaInset(edge: .top) {
-            HStack {
-                Text(
-                    String(scrollPosition?.year ?? 0) + "/"
-                        + String(scrollPosition?.month ?? 0)
-                )
-                .font(.title3)
-                .bold()
+            VStack(spacing: 0) {
+                HStack {
+                    Text(
+                        String(scrollPosition?.year ?? 0) + "/"
+                            + String(scrollPosition?.month ?? 0)
+                    )
+                    .font(.title3)
+                    .bold()
 
-                Spacer()
+                    Spacer()
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal)
+                .background(.bar)
+
+                Divider()
+                    .ignoresSafeArea(edges: .horizontal)
+
+                HStack(spacing: 0) {
+
+                    ForEach(weekdays, id: \.self) { weekday in
+                        Text(weekday)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                .padding(.vertical, 4)
+                .background(.bar)
+
+                Divider()
+                    .ignoresSafeArea(edges: .horizontal)
             }
-            .padding()
         }
     }
 }
