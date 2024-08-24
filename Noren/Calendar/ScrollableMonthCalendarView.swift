@@ -21,7 +21,10 @@ struct ScrollableMonthCalendarView: View {
         let calendar = Calendar.current
         let year = calendar.component(.year, from: currentDate)
         let month = calendar.component(.month, from: currentDate)
-        scrollPosition = YearMonth(year: year, month: month)
+        let selectedYearMonth = YearMonth(
+            year: selectedDate.wrappedValue.year,
+            month: selectedDate.wrappedValue.month)
+        scrollPosition = selectedYearMonth
         years = Array(year - 100...year + 100)
         currentYearMonth = YearMonth(year: year, month: month)
     }

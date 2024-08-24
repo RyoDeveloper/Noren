@@ -6,6 +6,7 @@
 //  Copyright © 2024 RyoDeveloper. All rights reserved.
 //
 
+import RDViewSizer
 import SwiftUI
 
 struct YearMonthDay {
@@ -28,6 +29,7 @@ struct YearMonth: Hashable, Comparable {
 
 struct CalendarView: View {
     @State private var selectedDate: YearMonthDay
+    @State private var viewSize = CGSize()
 
     init() {
         let currentDate = Date()
@@ -39,7 +41,7 @@ struct CalendarView: View {
     }
 
     var body: some View {
-        VStack {
+        DynamicStack(axis: viewSize.primaryAxis, spacing: 0) {
             ScrollableMonthCalendarView(selectedDate: $selectedDate)
 
             Divider()
@@ -47,6 +49,7 @@ struct CalendarView: View {
 
             DayDetailView(selectedDate: selectedDate)
         }
+        .RDViewSizer($viewSize)
     }
 }
 

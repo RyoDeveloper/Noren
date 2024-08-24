@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A6567922C74DF15007D1131 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6567912C74DF15007D1131 /* SwiftUIIntrospect */; };
+		2A787E962C79F4E800C3C2AA /* RDViewSizer in Frameworks */ = {isa = PBXBuildFile; productRef = 2A787E952C79F4E800C3C2AA /* RDViewSizer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A6567922C74DF15007D1131 /* SwiftUIIntrospect in Frameworks */,
+				2A787E962C79F4E800C3C2AA /* RDViewSizer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +73,7 @@
 			name = Noren;
 			packageProductDependencies = (
 				2A6567912C74DF15007D1131 /* SwiftUIIntrospect */,
+				2A787E952C79F4E800C3C2AA /* RDViewSizer */,
 			);
 			productName = Noren;
 			productReference = 2AAC8F272C70EA5F00C167BF /* Noren.app */;
@@ -102,6 +105,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				2A6567902C74DF15007D1131 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
+				2A787E942C79F4E800C3C2AA /* XCRemoteSwiftPackageReference "RDViewSizer" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2AAC8F282C70EA5F00C167BF /* Products */;
@@ -343,6 +347,14 @@
 				minimumVersion = 1.3.0;
 			};
 		};
+		2A787E942C79F4E800C3C2AA /* XCRemoteSwiftPackageReference "RDViewSizer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RyoDeveloper/RDViewSizer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -350,6 +362,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A6567902C74DF15007D1131 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = SwiftUIIntrospect;
+		};
+		2A787E952C79F4E800C3C2AA /* RDViewSizer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A787E942C79F4E800C3C2AA /* XCRemoteSwiftPackageReference "RDViewSizer" */;
+			productName = RDViewSizer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
