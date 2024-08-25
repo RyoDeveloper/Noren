@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2A6567922C74DF15007D1131 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6567912C74DF15007D1131 /* SwiftUIIntrospect */; };
 		2A787E962C79F4E800C3C2AA /* RDViewSizer in Frameworks */ = {isa = PBXBuildFile; productRef = 2A787E952C79F4E800C3C2AA /* RDViewSizer */; };
+		2A787EDB2C7AECA700C3C2AA /* DateTemplates in Frameworks */ = {isa = PBXBuildFile; productRef = 2A787EDA2C7AECA700C3C2AA /* DateTemplates */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A787EDB2C7AECA700C3C2AA /* DateTemplates in Frameworks */,
 				2A6567922C74DF15007D1131 /* SwiftUIIntrospect in Frameworks */,
 				2A787E962C79F4E800C3C2AA /* RDViewSizer in Frameworks */,
 			);
@@ -74,6 +76,7 @@
 			packageProductDependencies = (
 				2A6567912C74DF15007D1131 /* SwiftUIIntrospect */,
 				2A787E952C79F4E800C3C2AA /* RDViewSizer */,
+				2A787EDA2C7AECA700C3C2AA /* DateTemplates */,
 			);
 			productName = Noren;
 			productReference = 2AAC8F272C70EA5F00C167BF /* Noren.app */;
@@ -95,17 +98,19 @@
 				};
 			};
 			buildConfigurationList = 2AAC8F222C70EA5F00C167BF /* Build configuration list for PBXProject "Noren" */;
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 2AAC8F1E2C70EA5F00C167BF;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				2A6567902C74DF15007D1131 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 				2A787E942C79F4E800C3C2AA /* XCRemoteSwiftPackageReference "RDViewSizer" */,
+				2A787ED92C7AECA700C3C2AA /* XCRemoteSwiftPackageReference "DateTemplates" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2AAC8F282C70EA5F00C167BF /* Products */;
@@ -355,6 +360,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		2A787ED92C7AECA700C3C2AA /* XCRemoteSwiftPackageReference "DateTemplates" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eneko/DateTemplates.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -367,6 +380,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A787E942C79F4E800C3C2AA /* XCRemoteSwiftPackageReference "RDViewSizer" */;
 			productName = RDViewSizer;
+		};
+		2A787EDA2C7AECA700C3C2AA /* DateTemplates */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A787ED92C7AECA700C3C2AA /* XCRemoteSwiftPackageReference "DateTemplates" */;
+			productName = DateTemplates;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

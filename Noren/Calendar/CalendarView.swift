@@ -13,11 +13,30 @@ struct YearMonthDay {
     let year: Int
     let month: Int
     let day: Int
+
+    var toDate: Date? {
+        var dateComponents = DateComponents()
+        dateComponents.year = self.year
+        dateComponents.month = self.month
+        dateComponents.day = self.day
+
+        let calendar = Calendar.current
+        return calendar.date(from: dateComponents)
+    }
 }
 
 struct YearMonth: Hashable, Comparable {
     let year: Int
     let month: Int
+
+    var toDate: Date? {
+        var dateComponents = DateComponents()
+        dateComponents.year = self.year
+        dateComponents.month = self.month
+
+        let calendar = Calendar.current
+        return calendar.date(from: dateComponents)
+    }
 
     static func < (lhs: YearMonth, rhs: YearMonth) -> Bool {
         if lhs.year != rhs.year {

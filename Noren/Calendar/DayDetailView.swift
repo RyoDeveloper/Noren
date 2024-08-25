@@ -34,7 +34,7 @@ struct DayDetailView: View {
         .safeAreaInset(edge: .top) {
             VStack(spacing: 0) {
                 HStack {
-                    Text(String(selectedDate.day))
+                    Text(selectedDate.toDate?.formattedDayOfWeekAndDay() ?? " ")
                         .font(.title3)
                         .bold()
 
