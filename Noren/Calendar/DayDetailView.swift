@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DayDetailView: View {
-    let selectedDate: YearMonthDay
+    @Binding var selectedDate: YearMonthDay
     @State private var isShowHeaberBackground: Bool = false
 
     var body: some View {
@@ -31,6 +31,28 @@ struct DayDetailView: View {
             .frame(maxWidth: .infinity)
         }
         .coordinateSpace(name: "dayDetailViewScroll")
+        .overlay(alignment: .bottomTrailing) {
+            if let selectedDate = selectedDate.toDate,
+                !Calendar.current.isDate(Date(), inSameDayAs: selectedDate)
+            {
+                Button {
+                    withAnimation {
+                        let currentDate = Date()
+                        let calendar = Calendar.current
+                        let year = calendar.component(.year, from: currentDate)
+                        let month = calendar.component(
+                            .month, from: currentDate)
+                        let day = calendar.component(.day, from: currentDate)
+                        self.selectedDate = YearMonthDay(
+                            year: year, month: month, day: day)
+                    }
+                } label: {
+                    Label("今日", systemImage: "arrow.uturn.backward")
+                }
+                .buttonStyle(.bordered)
+                .padding()
+            }
+        }
         .safeAreaInset(edge: .top) {
             VStack(spacing: 0) {
                 HStack {
@@ -61,5 +83,5 @@ struct DayDetailView: View {
 
 #Preview {
     DayDetailView(
-        selectedDate: YearMonthDay(year: 2025, month: 1, day: 1))
+        selectedDate: .constant(YearMonthDay(year: 2025, month: 1, day: 1)))
 }

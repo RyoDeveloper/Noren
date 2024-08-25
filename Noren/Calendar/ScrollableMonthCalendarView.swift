@@ -64,17 +64,10 @@ struct ScrollableMonthCalendarView: View {
                     year: newValue.year, month: newValue.month, day: 1)
             }
         }
-        .overlay(alignment: .bottomTrailing) {
-            if currentYearMonth != scrollPosition {
-                Button {
-                    withAnimation {
-                        scrollPosition = currentYearMonth
-                    }
-                } label: {
-                    Label("今日", systemImage: "arrow.uturn.backward")
-                }
-                .buttonStyle(.bordered)
-                .padding()
+        .onChange(of: selectedDate) { oldValue, newValue in
+            withAnimation {
+                scrollPosition = YearMonth(
+                    year: newValue.year, month: newValue.month)
             }
         }
         .safeAreaInset(edge: .top) {

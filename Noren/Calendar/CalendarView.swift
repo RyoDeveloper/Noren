@@ -9,7 +9,7 @@
 import RDViewSizer
 import SwiftUI
 
-struct YearMonthDay {
+struct YearMonthDay: Equatable {
     let year: Int
     let month: Int
     let day: Int
@@ -66,7 +66,7 @@ struct CalendarView: View {
             Divider()
                 .ignoresSafeArea(edges: .top)
 
-            DayDetailView(selectedDate: selectedDate)
+            DayDetailView(selectedDate: $selectedDate)
         }
         .RDViewSizer($viewSize)
         .toolbarBackground(
