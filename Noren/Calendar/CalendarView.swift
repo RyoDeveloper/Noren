@@ -14,6 +14,20 @@ struct YearMonthDay: Equatable {
     let month: Int
     let day: Int
 
+    init(year: Int, month: Int, day: Int) {
+        self.year = year
+        self.month = month
+        self.day = day
+    }
+
+    init() {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        year = calendar.component(.year, from: currentDate)
+        month = calendar.component(.month, from: currentDate)
+        day = calendar.component(.day, from: currentDate)
+    }
+
     var toDate: Date? {
         var dateComponents = DateComponents()
         dateComponents.year = self.year

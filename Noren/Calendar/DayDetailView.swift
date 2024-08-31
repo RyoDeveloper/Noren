@@ -10,14 +10,14 @@ import SwiftUI
 
 struct DayDetailView: View {
     @Binding var selectedDate: YearMonthDay
-    @State private var isShowHeaberBackground: Bool = false
+    @State private var isShowHeaderBackground: Bool = false
 
     var body: some View {
         ScrollView {
             GeometryReader { geometry in
                 Path { _ in
                     DispatchQueue.main.async {
-                        isShowHeaberBackground =
+                        isShowHeaderBackground =
                             geometry.frame(in: .named("dayDetailViewScroll"))
                             .origin.y < -16
                     }
@@ -37,14 +37,7 @@ struct DayDetailView: View {
             {
                 Button {
                     withAnimation {
-                        let currentDate = Date()
-                        let calendar = Calendar.current
-                        let year = calendar.component(.year, from: currentDate)
-                        let month = calendar.component(
-                            .month, from: currentDate)
-                        let day = calendar.component(.day, from: currentDate)
-                        self.selectedDate = YearMonthDay(
-                            year: year, month: month, day: day)
+                        self.selectedDate = YearMonthDay()
                     }
                 } label: {
                     Label("今日", systemImage: "arrow.uturn.backward")
@@ -71,10 +64,10 @@ struct DayDetailView: View {
                 }
                 .padding(.vertical, 8)
                 .padding(.horizontal)
-                .background(.bar.opacity(isShowHeaberBackground ? 1 : 0))
+                .background(.bar.opacity(isShowHeaderBackground ? 1 : 0))
 
                 Divider()
-                    .opacity(isShowHeaberBackground ? 1 : 0)
+                    .opacity(isShowHeaderBackground ? 1 : 0)
                     .ignoresSafeArea(edges: .horizontal)
             }
         }

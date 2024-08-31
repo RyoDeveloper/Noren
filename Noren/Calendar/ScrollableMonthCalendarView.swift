@@ -14,7 +14,7 @@ struct ScrollableMonthCalendarView: View {
     @State private var scrollPosition: YearMonth?
     private let years: [Int]
     private let currentYearMonth: YearMonth
-    private let weekdays: [String] = DateFormatter().shortWeekdaySymbols
+    private var viewModel = ScrollableMonthCalendarViewModel()
 
     init(selectedDate: Binding<YearMonthDay>) {
         _selectedDate = selectedDate
@@ -36,9 +36,10 @@ struct ScrollableMonthCalendarView: View {
                 ForEach(years, id: \.self) { year in
                     ForEach(1...12, id: \.self) { month in
                         MonthCalendarView(
-                            yearmonth: YearMonth(year: year, month: month),
+                            yearMonth: YearMonth(year: year, month: month),
                             selectedDate: $selectedDate
                         )
+                        .padding(8)
                         .id(YearMonth(year: year, month: month))
                         .containerRelativeFrame(.vertical)
                     }
@@ -64,13 +65,19 @@ struct ScrollableMonthCalendarView: View {
                     year: newValue.year, month: newValue.month, day: 1)
             }
         }
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: NSLocale.currentLocaleDidChangeNotification)
+        ) { _ in
+            viewModel.setWeekdays()
+        }
         .onChange(of: selectedDate) { oldValue, newValue in
             withAnimation {
                 scrollPosition = YearMonth(
                     year: newValue.year, month: newValue.month)
             }
         }
-        .safeAreaInset(edge: .top) {
+        .safeAreaInset(edge: .top, spacing: 0) {
             VStack(spacing: 0) {
                 HStack {
                     Text(
@@ -84,24 +91,24 @@ struct ScrollableMonthCalendarView: View {
                 }
                 .padding(.vertical, 8)
                 .padding(.horizontal)
-                .background(.bar)
 
                 Divider()
+                    .background(Color(.systemBackground))
                     .ignoresSafeArea(edges: .horizontal)
 
                 HStack(spacing: 0) {
-
-                    ForEach(weekdays, id: \.self) { weekday in
+                    ForEach(viewModel.weekdays, id: \.self) { weekday in
                         Text(weekday)
                             .frame(maxWidth: .infinity)
                     }
                 }
                 .padding(.vertical, 4)
-                .background(.bar)
+                .padding(.horizontal, 8)
 
                 Divider()
                     .ignoresSafeArea(edges: .horizontal)
             }
+            .background(.bar)
         }
     }
 }
