@@ -75,13 +75,16 @@ struct CalendarView: View {
 
     var body: some View {
         DynamicStack(axis: viewSize.primaryAxis, spacing: 0) {
-            ScrollableMonthCalendarView(selectedDate: $selectedDate)
+            if CGSize() != viewSize {
+                ScrollableMonthCalendarView(selectedDate: $selectedDate)
 
-            Divider()
-                .ignoresSafeArea(edges: .top)
+                Divider()
+                    .ignoresSafeArea(edges: .top)
 
-            DayDetailView(selectedDate: $selectedDate)
+                DayDetailView(selectedDate: $selectedDate)
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .RDViewSizer($viewSize)
         .toolbarBackground(
             viewSize.primaryAxis == .horizontal ? .visible : .automatic,

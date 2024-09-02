@@ -31,26 +31,30 @@ struct ScrollableMonthCalendarView: View {
     }
 
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(spacing: 0) {
-                ForEach(years, id: \.self) { year in
-                    ForEach(1...12, id: \.self) { month in
-                        MonthCalendarView(
-                            yearMonth: YearMonth(year: year, month: month),
-                            selectedDate: $selectedDate
-                        )
-                        .padding(8)
-                        .id(YearMonth(year: year, month: month))
-                        .containerRelativeFrame(.vertical)
+        GeometryReader { geometry in
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVStack(spacing: 0) {
+                    ForEach(years, id: \.self) { year in
+                        ForEach(1...12, id: \.self) { month in
+                            MonthCalendarView(
+                                yearMonth: YearMonth(year: year, month: month),
+                                selectedDate: $selectedDate
+                            )
+                            .padding(8)
+                            .padding(.bottom, geometry.safeAreaInsets.bottom)
+                            .id(YearMonth(year: year, month: month))
+                            .containerRelativeFrame(.vertical)
+                        }
                     }
                 }
+                .scrollTargetLayout()
             }
-            .scrollTargetLayout()
-        }
-        .scrollTargetBehavior(.paging)
-        .scrollPosition(id: $scrollPosition)
-        .introspect(.scrollView, on: .iOS(.v18)) { scrollView in
-            scrollView.scrollsToTop = false
+            .scrollTargetBehavior(.paging)
+            .scrollPosition(id: $scrollPosition)
+            .introspect(.scrollView, on: .iOS(.v18)) { scrollView in
+                scrollView.scrollsToTop = false
+            }
+            .ignoresSafeArea(edges: .bottom)
         }
         .onChange(of: scrollPosition) { oldValue, newValue in
             guard let newValue else { return }
