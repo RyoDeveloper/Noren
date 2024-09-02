@@ -1,5 +1,5 @@
 //
-//  HailightView.swift
+//  HighlightView.swift
 //  Noren
 //
 //  https://github.com/RyoDeveloper/Noren
@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-struct HailightView: View {
+struct HighlightView: View {
     var body: some View {
-        Text("HailightView")
+        Text("HighlightView")
     }
 }
 
 #Preview {
-    HailightView()
+    HighlightView()
 }

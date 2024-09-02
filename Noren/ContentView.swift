@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum TabItem {
-    case hailight
+    case highlight
     case calendar
     case reminder
     case note
@@ -17,12 +17,12 @@ enum TabItem {
 }
 
 struct ContentView: View {
-    @State var selectedTab: TabItem = .hailight
+    @State var selectedTab: TabItem = .highlight
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tab("ハイライト", systemImage: "sparkles", value: .hailight) {
-                HailightView()
+            Tab("ハイライト", systemImage: "sparkles", value: .highlight) {
+                HighlightView()
             }
             Tab("カレンダー", systemImage: "calendar", value: .calendar) {
                 CalendarView()
