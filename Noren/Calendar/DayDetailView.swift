@@ -14,21 +14,30 @@ struct DayDetailView: View {
 
     var body: some View {
         ScrollView {
-            GeometryReader { geometry in
-                Path { _ in
-                    DispatchQueue.main.async {
-                        isShowHeaderBackground =
-                            geometry.frame(in: .named("dayDetailViewScroll"))
-                            .origin.y < -16
+            VStack {
+                Text(
+                    "\(String(selectedDate.year)) / \(selectedDate.month) / \(selectedDate.day)"
+                )
+                .padding(8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    .gray.opacity(0.2), in: RoundedRectangle(cornerRadius: 8))
+            }
+            .background(alignment: .top) {
+                GeometryReader { geometry in
+                    Path { _ in
+                        DispatchQueue.main.async {
+                            isShowHeaderBackground =
+                                geometry.frame(
+                                    in: .named("dayDetailViewScroll")
+                                )
+                                .origin.y < -8
+                        }
                     }
                 }
+                .frame(height: 0)
             }
-            .frame(height: 0)
-
-            Text(
-                "\(String(selectedDate.year)) / \(selectedDate.month) / \(selectedDate.day)"
-            )
-            .frame(maxWidth: .infinity)
+            .padding(.horizontal)
         }
         .coordinateSpace(name: "dayDetailViewScroll")
         .overlay(alignment: .bottomTrailing) {
