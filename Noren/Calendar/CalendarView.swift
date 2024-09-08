@@ -63,6 +63,7 @@ struct YearMonth: Hashable, Comparable {
 struct CalendarView: View {
     @State private var selectedDate: YearMonthDay
     @State private var viewSize = CGSize()
+    private let viewModel = CalendarViewModel()
 
     init() {
         let currentDate = Date()
@@ -81,11 +82,39 @@ struct CalendarView: View {
                 Divider()
                     .ignoresSafeArea(edges: .top)
 
-                DayDetailView(selectedDate: $selectedDate)
+                DayDetailView(
+                    selectedDate: $selectedDate,
+                    ekCalendarItems: viewModel.ekCalendarItems
+                ) {
+                    Task {
+                        guard let selectedDate = selectedDate.toDate else {
+                            return
+                        }
+                        await viewModel.fetchEvent(
+                            date: selectedDate, isRefresh: true)
+                    }
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .RDViewSizer($viewSize)
+        .task {
+            await viewModel.eventsAuthorizationStatus()
+        }
+        .onChange(of: selectedDate, initial: true) { oldValue, newValue in
+            Task {
+                guard let selectedDate = newValue.toDate else { return }
+                await viewModel.fetchEvent(date: selectedDate, isRefresh: true)
+            }
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .EKEventStoreChanged)
+        ) { i in
+            Task {
+                guard let selectedDate = selectedDate.toDate else { return }
+                await viewModel.fetchEvent(date: selectedDate, isRefresh: false)
+            }
+        }
         .toolbarBackground(
             viewSize.primaryAxis == .horizontal ? .visible : .automatic,
             for: .tabBar)

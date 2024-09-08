@@ -6,23 +6,33 @@
 //  Copyright © 2024 RyoDeveloper. All rights reserved.
 //
 
+import EventKit
 import SwiftUI
 
 struct DayDetailView: View {
     @Binding var selectedDate: YearMonthDay
     @State private var isShowHeaderBackground: Bool = false
+    var ekCalendarItems: [EKCalendarItem]?
+    let refreshable: () -> Void
 
     var body: some View {
         ScrollView {
             VStack {
-                Text(
-                    "\(String(selectedDate.year)) / \(selectedDate.month) / \(selectedDate.day)"
-                )
-                .padding(8)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(
-                    .gray.opacity(0.2), in: RoundedRectangle(cornerRadius: 8))
+                if let ekCalendarItems {
+                    ForEach(ekCalendarItems, id: \.self) { item in
+                        Text("\(item.title)")
+                            .padding(8)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                .gray.opacity(0.2),
+                                in: RoundedRectangle(cornerRadius: 8))
+                    }
+                } else {
+                    ProgressView()
+                }
             }
+            .padding(.horizontal)
+            .frame(maxWidth: .infinity)
             .background(alignment: .top) {
                 GeometryReader { geometry in
                     Path { _ in
@@ -37,10 +47,26 @@ struct DayDetailView: View {
                 }
                 .frame(height: 0)
             }
-            .padding(.horizontal)
+        }.refreshable {
+            refreshable()
         }
         .coordinateSpace(name: "dayDetailViewScroll")
-        .overlay(alignment: .bottomTrailing) {
+        .sensoryFeedback(trigger: selectedDate) { oldValue, newValue in
+            .selection
+        }
+        .overlay {
+            if let ekCalendarItems, ekCalendarItems.isEmpty {
+                ContentUnavailableView {
+                    Label("イベントとタスクはありません", systemImage: "checkmark")
+                } actions: {
+                    Button {
+                    } label: {
+                        Label("追加", systemImage: "plus")
+                    }
+                }
+            }
+        }
+        .safeAreaInset(edge: .bottom, alignment: .trailing) {
             if let selectedDate = selectedDate.toDate,
                 !Calendar.current.isDate(Date(), inSameDayAs: selectedDate)
             {
@@ -85,5 +111,6 @@ struct DayDetailView: View {
 
 #Preview {
     DayDetailView(
-        selectedDate: .constant(YearMonthDay(year: 2025, month: 1, day: 1)))
+        selectedDate: .constant(YearMonthDay(year: 2025, month: 1, day: 1))
+    ) {}
 }
