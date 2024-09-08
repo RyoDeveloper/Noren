@@ -36,4 +36,28 @@ final class EventManager {
             withStart: withStart, end: end, calendars: calendars)
         return store.events(matching: predicate)
     }
+
+    // MARK: - リマインダー
+
+    /// 認証ステータスの取得
+    func reminderAuthorizationStatus() async -> EKAuthorizationStatus {
+        do {
+            try await store.requestFullAccessToReminders()
+        } catch {
+            print(error.localizedDescription)
+        }
+
+        return EKEventStore.authorizationStatus(for: .reminder)
+    }
+
+    /// リマインダーの取得
+    func fetchReminder(calendars: [EKCalendar]?) async -> [EKReminder] {
+        let predicate = store.predicateForReminders(in: calendars)
+
+        return await withCheckedContinuation { continuation in
+            store.fetchReminders(matching: predicate) { reminders in
+                continuation.resume(returning: reminders ?? [])
+            }
+        }
+    }
 }

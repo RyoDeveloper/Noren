@@ -4,5 +4,7 @@
 <dict>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>イベントの表示、追加に使用されます。</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>リマインダーの表示、追加に使用されます。</string>
 </dict>
 </plist>

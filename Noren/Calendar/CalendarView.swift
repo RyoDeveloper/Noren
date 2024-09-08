@@ -92,6 +92,9 @@ struct CalendarView: View {
                         }
                         await viewModel.fetchEvent(
                             date: selectedDate, isRefresh: true)
+                        await viewModel.fetchAllReminder()
+                        await viewModel.fetchReminder(
+                            date: selectedDate, isRefresh: true)
                     }
                 }
             }
@@ -100,19 +103,25 @@ struct CalendarView: View {
         .RDViewSizer($viewSize)
         .task {
             await viewModel.eventsAuthorizationStatus()
+            await viewModel.reminderAuthorizationStatus()
         }
         .onChange(of: selectedDate, initial: true) { oldValue, newValue in
             Task {
                 guard let selectedDate = newValue.toDate else { return }
                 await viewModel.fetchEvent(date: selectedDate, isRefresh: true)
+                await viewModel.fetchReminder(
+                    date: selectedDate, isRefresh: true)
             }
         }
         .onReceive(
             NotificationCenter.default.publisher(for: .EKEventStoreChanged)
-        ) { i in
+        ) { _ in
             Task {
                 guard let selectedDate = selectedDate.toDate else { return }
                 await viewModel.fetchEvent(date: selectedDate, isRefresh: false)
+                await viewModel.fetchAllReminder()
+                await viewModel.fetchReminder(
+                    date: selectedDate, isRefresh: false)
             }
         }
         .toolbarBackground(
