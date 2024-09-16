@@ -28,14 +28,14 @@ struct YearMonthDay: Equatable {
         day = calendar.component(.day, from: currentDate)
     }
 
-    var toDate: Date? {
+    var toDate: Date {
         var dateComponents = DateComponents()
         dateComponents.year = self.year
         dateComponents.month = self.month
         dateComponents.day = self.day
 
         let calendar = Calendar.current
-        return calendar.date(from: dateComponents)
+        return calendar.date(from: dateComponents) ?? Date()
     }
 }
 
@@ -43,13 +43,13 @@ struct YearMonth: Hashable, Comparable {
     let year: Int
     let month: Int
 
-    var toDate: Date? {
+    var toDate: Date {
         var dateComponents = DateComponents()
         dateComponents.year = self.year
         dateComponents.month = self.month
 
         let calendar = Calendar.current
-        return calendar.date(from: dateComponents)
+        return calendar.date(from: dateComponents) ?? Date()
     }
 
     static func < (lhs: YearMonth, rhs: YearMonth) -> Bool {
@@ -87,9 +87,7 @@ struct CalendarView: View {
                     ekCalendarItems: viewModel.ekCalendarItems
                 ) {
                     Task {
-                        guard let selectedDate = selectedDate.toDate else {
-                            return
-                        }
+                        let selectedDate = selectedDate.toDate
                         await viewModel.fetchEvent(
                             date: selectedDate, isRefresh: true)
                         await viewModel.fetchAllReminder()
@@ -107,7 +105,7 @@ struct CalendarView: View {
         }
         .onChange(of: selectedDate, initial: true) { oldValue, newValue in
             Task {
-                guard let selectedDate = newValue.toDate else { return }
+                let selectedDate = newValue.toDate
                 await viewModel.fetchEvent(date: selectedDate, isRefresh: true)
                 await viewModel.fetchReminder(
                     date: selectedDate, isRefresh: true)
@@ -117,7 +115,7 @@ struct CalendarView: View {
             NotificationCenter.default.publisher(for: .EKEventStoreChanged)
         ) { _ in
             Task {
-                guard let selectedDate = selectedDate.toDate else { return }
+                let selectedDate = selectedDate.toDate
                 await viewModel.fetchEvent(date: selectedDate, isRefresh: false)
                 await viewModel.fetchAllReminder()
                 await viewModel.fetchReminder(

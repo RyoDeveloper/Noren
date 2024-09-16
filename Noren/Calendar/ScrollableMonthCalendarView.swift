@@ -85,7 +85,7 @@ struct ScrollableMonthCalendarView: View {
             VStack(spacing: 0) {
                 HStack {
                     Text(
-                        scrollPosition?.toDate?.formattedMonthYear()
+                        scrollPosition?.toDate.formattedMonthYear()
                             ?? " "
                     )
                     .font(.title3)

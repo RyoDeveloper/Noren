@@ -20,17 +20,18 @@ struct DayDetailView: View {
             VStack {
                 if let ekCalendarItems {
                     ForEach(ekCalendarItems, id: \.self) { item in
-                        Text("\(item.title)")
-                            .padding(8)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(
-                                .gray.opacity(0.2),
-                                in: RoundedRectangle(cornerRadius: 8))
+                        if let event = item as? EKEvent {
+                            EventCell(
+                                event: event, displayDate: selectedDate.toDate)
+                        } else if let reminder = item as? EKReminder {
+                            ReminderCell(reminder: reminder)
+                        }
                     }
                 } else {
                     ProgressView()
                 }
             }
+            .padding(.bottom)
             .padding(.horizontal)
             .frame(maxWidth: .infinity)
             .background(alignment: .top) {
@@ -67,8 +68,8 @@ struct DayDetailView: View {
             }
         }
         .safeAreaInset(edge: .bottom, alignment: .trailing) {
-            if let selectedDate = selectedDate.toDate,
-                !Calendar.current.isDate(Date(), inSameDayAs: selectedDate)
+            if !Calendar.current.isDate(
+                Date(), inSameDayAs: selectedDate.toDate)
             {
                 Button {
                     withAnimation {
@@ -84,7 +85,7 @@ struct DayDetailView: View {
         .safeAreaInset(edge: .top) {
             VStack(spacing: 0) {
                 HStack {
-                    Text(selectedDate.toDate?.formattedDayOfWeekAndDay() ?? " ")
+                    Text(selectedDate.toDate.formattedDayOfWeekAndDay())
                         .font(.title3)
                         .bold()
 
