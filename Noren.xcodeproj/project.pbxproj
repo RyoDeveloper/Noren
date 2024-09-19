@@ -10,6 +10,7 @@
 		2A6567922C74DF15007D1131 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6567912C74DF15007D1131 /* SwiftUIIntrospect */; };
 		2A787E962C79F4E800C3C2AA /* RDViewSizer in Frameworks */ = {isa = PBXBuildFile; productRef = 2A787E952C79F4E800C3C2AA /* RDViewSizer */; };
 		2A787EDB2C7AECA700C3C2AA /* DateTemplates in Frameworks */ = {isa = PBXBuildFile; productRef = 2A787EDA2C7AECA700C3C2AA /* DateTemplates */; };
+		2AA108982C9C63C8001B81BD /* RDDynamicStack in Frameworks */ = {isa = PBXBuildFile; productRef = 2AA108972C9C63C8001B81BD /* RDDynamicStack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 				2A787EDB2C7AECA700C3C2AA /* DateTemplates in Frameworks */,
 				2A6567922C74DF15007D1131 /* SwiftUIIntrospect in Frameworks */,
 				2A787E962C79F4E800C3C2AA /* RDViewSizer in Frameworks */,
+				2AA108982C9C63C8001B81BD /* RDDynamicStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +92,7 @@
 				2A6567912C74DF15007D1131 /* SwiftUIIntrospect */,
 				2A787E952C79F4E800C3C2AA /* RDViewSizer */,
 				2A787EDA2C7AECA700C3C2AA /* DateTemplates */,
+				2AA108972C9C63C8001B81BD /* RDDynamicStack */,
 			);
 			productName = Noren;
 			productReference = 2AAC8F272C70EA5F00C167BF /* Noren.app */;
@@ -124,6 +127,7 @@
 				2A6567902C74DF15007D1131 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 				2A787E942C79F4E800C3C2AA /* XCRemoteSwiftPackageReference "RDViewSizer" */,
 				2A787ED92C7AECA700C3C2AA /* XCRemoteSwiftPackageReference "DateTemplates" */,
+				2AA108962C9C63C8001B81BD /* XCRemoteSwiftPackageReference "RDDynamicStack" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2AAC8F282C70EA5F00C167BF /* Products */;
@@ -383,6 +387,14 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		2AA108962C9C63C8001B81BD /* XCRemoteSwiftPackageReference "RDDynamicStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:RyoDeveloper/RDDynamicStack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -400,6 +412,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A787ED92C7AECA700C3C2AA /* XCRemoteSwiftPackageReference "DateTemplates" */;
 			productName = DateTemplates;
+		};
+		2AA108972C9C63C8001B81BD /* RDDynamicStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AA108962C9C63C8001B81BD /* XCRemoteSwiftPackageReference "RDDynamicStack" */;
+			productName = RDDynamicStack;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

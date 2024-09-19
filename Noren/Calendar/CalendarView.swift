@@ -8,6 +8,7 @@
 
 import RDViewSizer
 import SwiftUI
+import RDDynamicStack
 
 struct YearMonthDay: Equatable {
     let year: Int
@@ -75,7 +76,7 @@ struct CalendarView: View {
     }
 
     var body: some View {
-        DynamicStack(axis: viewSize.primaryAxis, spacing: 0) {
+        RDDynamicStack(axis: viewSize.primaryAxis, spacing: 0) {
             if CGSize() != viewSize {
                 ScrollableMonthCalendarView(selectedDate: $selectedDate)
 

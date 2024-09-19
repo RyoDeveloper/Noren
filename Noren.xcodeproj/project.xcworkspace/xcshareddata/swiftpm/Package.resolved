@@ -1,5 +1,5 @@
 {
-  "originHash" : "e293e7d04f7b43fd3cf5a17ca94507cf0d87112905efe92c1bcfae1ff08d29ea",
+  "originHash" : "ffa3972691484c1a7581cb842af765549353d3bf19b2114901d36779b592c9f6",
   "pins" : [
     {
       "identity" : "datetemplates",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "796ffd308cbebc24f433e4aa1f10a071e54ff20b",
         "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "rddynamicstack",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:RyoDeveloper/RDDynamicStack.git",
+      "state" : {
+        "revision" : "c9bb153b666958659ccfa19ddb5325b4079d73ba",
+        "version" : "1.0.0"
       }
     },
     {
