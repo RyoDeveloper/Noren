@@ -12,6 +12,7 @@ import SwiftUI
 struct DayDetailView: View {
     @Binding var selectedDate: YearMonthDay
     @State private var isShowHeaderBackground: Bool = false
+    @State private var isShowAddView = false
     var ekCalendarItems: [EKCalendarItem]?
     let refreshable: () -> Void
 
@@ -61,6 +62,7 @@ struct DayDetailView: View {
                     Label("イベントとタスクはありません", systemImage: "checkmark")
                 } actions: {
                     Button {
+                        isShowAddView = true
                     } label: {
                         Label("追加", systemImage: "plus")
                     }
@@ -88,23 +90,30 @@ struct DayDetailView: View {
                     Text(selectedDate.toDate.formattedDayOfWeekAndDay())
                         .font(.title3)
                         .bold()
+                        .padding(.vertical, 8)
 
                     Spacer()
 
                     Button {
-
+                        isShowAddView = true
                     } label: {
                         Label("追加", systemImage: "plus")
                             .labelStyle(.iconOnly)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal)
                     }
                 }
-                .padding(.vertical, 8)
                 .padding(.horizontal)
                 .background(.bar.opacity(isShowHeaderBackground ? 1 : 0))
 
                 Divider()
                     .opacity(isShowHeaderBackground ? 1 : 0)
                     .ignoresSafeArea(edges: .horizontal)
+            }
+        }
+        .sheet(isPresented: $isShowAddView) {
+            NavigationStack {
+                AddView(addViewType: .event)
             }
         }
     }
